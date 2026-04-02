@@ -1,0 +1,63 @@
+# Python
+
+**pycache**/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+
+venv/
+.env/
+.venv/
+
+# Jupyter / IPython
+
+.ipynb_checkpoints/
+
+
+# VS Code
+
+.vscode/
+
+# Logs & temp files
+
+*.log
+*.tmp
+*.swp
+.DS_Store
+
+# Data files (IMPORTANT)
+
+data/
+*.csv
+*.tsv
+*.zip
+*.tar
+*.gz
+
+# Model files (ML)
+
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.joblib
+*.pkl
+
+# Environment / secrets
+
+.env
+.env.*
+
+
+# Build / dist
+
+build/
+dist/
+*.egg-info/
+
+# Misc
+
+*.sqlite3
