@@ -34,7 +34,7 @@ def extract_images_from_bag(bag_path, topic_name='/camera/image_raw', output_dir
             cv_img = bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
             
             # Save image
-            filename = os.path.join(output_dir, f"frame_{count:05d}.jpg")
+            filename = os.path.join(output_dir, f"frame_{count:05d}.png")
             cv2.imwrite(filename, cv_img)
             count += 1
     
@@ -53,7 +53,7 @@ def extract_from_video(video_path, output_dir='video_frames'):
             break
         
         # Save every frame as a JPEG
-        filename = os.path.join(output_dir, f"frame_{count:05d}.jpg")
+        filename = os.path.join(output_dir, f"frame_{count:05d}.png")
         cv2.imwrite(filename, frame)
         count += 1
     
