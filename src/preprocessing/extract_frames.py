@@ -6,7 +6,7 @@ import rosbag2_py
 from rclpy.serialization import deserialize_message
 from rosidl_runtime_py.utilities import get_message
 
-def extract_images_from_bag(bag_path, topic_name='/camera/image_raw', output_dir='extracted_images'):
+def extract_images_from_bag(bag_path, topic_name='/camera/image_raw', output_dir='data/interim/robot_frames'):
     # Create output directory if it doesn't exist
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
