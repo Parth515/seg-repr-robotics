@@ -1,5 +1,3 @@
-# src/datasets/cityscapes_dataset.py
-
 from pathlib import Path
 from PIL import Image
 import torch
@@ -49,7 +47,7 @@ class CityscapesSegDataset(Dataset):
         if self.transform is not None:
             augmented = self.transform(image=image, mask=mask)
             image = augmented["image"]
-            mask = augmented["mask"]
+            mask = augmented["mask"].long()
         else:
             image = torch.from_numpy(image).permute(2, 0, 1).float() / 255.0
             mask = torch.from_numpy(mask).long()
