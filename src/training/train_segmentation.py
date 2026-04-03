@@ -77,7 +77,7 @@ def train_one_epoch(model, loader, optimizer, criterion, device):
 
     return total_loss / len(loader), total_miou / len(loader)
 
-
+# Short version
 @torch.no_grad()
 def validate(model, loader, criterion, device):
     model.eval()
@@ -97,6 +97,42 @@ def validate(model, loader, criterion, device):
         total_miou += compute_miou(outputs["out"], masks)
 
     return total_loss / len(loader), total_miou / len(loader)
+
+# Better Validation loop 
+# accumulate one confusion matrix over the whole validation set and compute metrics once at the end.
+# @torch.no_grad()
+# def validate(model, loader, criterion, device):
+#     from src.evaluation.metrics_segmentation import (
+#         fast_confusion_matrix,
+#         compute_iou_from_confusion_matrix,
+#         compute_pixel_accuracy,
+#         NUM_CLASSES,
+#         IGNORE_INDEX,
+#     )
+
+#     model.eval()
+#     total_loss = 0.0
+#     conf_mat = np.zeros((NUM_CLASSES, NUM_CLASSES), dtype=np.int64)
+
+#     for batch in loader:
+#         images = batch["image"].to(device)
+#         masks = batch["mask"].to(device)
+
+#         outputs = model(images)
+#         loss_main = criterion(outputs["out"], masks)
+#         loss_aux = criterion(outputs["aux"], masks) if "aux" in outputs else 0.0
+#         loss = loss_main + 0.4 * loss_aux
+#         total_loss += loss.item()
+
+#         preds = torch.argmax(outputs["out"], dim=1)
+#         conf_mat += fast_confusion_matrix(preds, masks, NUM_CLASSES, IGNORE_INDEX)
+
+#     iou = compute_iou_from_confusion_matrix(conf_mat)
+#     valid_classes = conf_mat.sum(axis=1) + conf_mat.sum(axis=0) > 0
+#     miou = float(iou[valid_classes].mean()) if valid_classes.any() else 0.0
+#     pixel_acc = float(compute_pixel_accuracy(conf_mat))
+
+#     return total_loss / len(loader), miou, pixel_acc, conf_mat
 
 
 def main(args):
@@ -144,7 +180,11 @@ def main(args):
         start = time.time()
 
         train_loss, train_miou = train_one_epoch(model, train_loader, optimizer, criterion, device)
+        # If you use short version
         val_loss, val_miou = validate(model, val_loader, criterion, device)
+
+        # If you use better validation
+        # val_loss, val_miou, val_pixel_acc, conf_mat = validate(model, val_loader, criterion, device)
 
         epoch_time = time.time() - start
 
@@ -164,6 +204,9 @@ def main(args):
             f"val_loss={val_loss:.4f} val_mIoU={val_miou:.4f} | "
             f"time={epoch_time:.1f}s"
         )
+
+        # For better validation usage, you can visualize by adding it into print above
+        # print(f"val_loss={val_loss:.4f} val_mIoU={val_miou:.4f} val_pixel_acc={val_pixel_acc:.4f}")
 
         torch.save(model.state_dict(), out_dir / "last_model.pt")
 
