@@ -22,13 +22,13 @@ class ConvAutoencoder(nn.Module):
         )
 
         self.decoder = nn.Sequential(
-            nn.Conv2d(latent_dim, 256, kernel_size=4, strides=2, padding=1),# H/8
+            nn.ConvTranspose2d(latent_dim, 256, kernel_size=4, stride=2, padding=1),  # H/8
             nn.ReLU(inplace=True),
-            nn.Conv2d(256, 128, kernel_size=4, stride=2, padding=1),# H/4
+            nn.ConvTranspose2d(256, 128, kernel_size=4, stride=2, padding=1),          # H/4
             nn.ReLU(inplace=True),
-            nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1),# H/2
+            nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1),           # H/2
             nn.ReLU(inplace=True),
-            nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),# H
+            nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),            # H
             nn.ReLU(inplace=True),
             nn.Conv2d(32, 3, kernel_size=3, padding=1),
             nn.Sigmoid()

@@ -43,12 +43,14 @@ def get_autoencoder_train_transforms(image_size = (256, 512)):
         A.HorizontalFlip(p=0.5),
         A.RandomBrightnessContrast(p=0.3),
         A.GaussNoise(p=0.2),
+        A.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
         ToTensorV2(),
     ])
 
 def get_autoencoder_val_transforms(image_size=(256, 512)):
     h, w = image_size
-    return A.compose([
+    return A.Compose([
         A.Resize(height=h, width=w),
+        A.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
         ToTensorV2(),
     ])
