@@ -6,7 +6,7 @@ IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)
 
 
-def get_train_transforms(image_size=(512, 1024)):
+def get_train_transforms(image_size=(256, 512)):
     h, w = image_size
 
     return A.Compose([
@@ -26,7 +26,7 @@ def get_train_transforms(image_size=(512, 1024)):
     ])
 
 
-def get_val_transforms(image_size=(512, 1024)):
+def get_val_transforms(image_size=(256, 512)):
     h, w = image_size
 
     return A.Compose([

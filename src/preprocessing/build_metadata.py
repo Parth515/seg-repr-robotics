@@ -69,8 +69,8 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-root", type=str, default="/media/parth/My Passport/Cityspaces")
-    parser.add_argument("--output-csv", type=str, default="data/processed/metadata/samples.csv")
+    parser.add_argument("--data-root", type=str, default="data/robot")
+    parser.add_argument("--output-csv", type=str, default="data/processed/metadata/samples_robot.csv")
     parser.add_argument("--include-hash", action="store_true", help="Add MD5 hashes for reproducibility")
     args = parser.parse_args()
     main(args)

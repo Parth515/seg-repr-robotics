@@ -61,7 +61,7 @@ class CityscapesSegDataset(Dataset):
     
 
 # def main():
-#     ds = CityscapesSegDataset(root="/media/parth/My Passport/Cityspaces", split="val")
+#     ds = CityscapesSegDataset(root="data/robot", split="val")
 #     print("num samples:", len(ds))
 
 #     sample = ds[0]

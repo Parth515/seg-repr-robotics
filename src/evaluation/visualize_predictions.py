@@ -125,7 +125,7 @@ def run(args):
         fig.suptitle(Path(sample["img_path"]).name, fontsize=12)
         plt.tight_layout()
 
-        save_path = out_dir / f"sample_{i:02d}.png"
+        save_path = out_dir / f"sample_r_ro_{i:02d}.png"
         plt.savefig(save_path, dpi=150, bbox_inches="tight")
         plt.close(fig)
 
@@ -134,8 +134,8 @@ def run(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-root", type=str, default="/media/parth/My Passport/Cityspaces")
-    parser.add_argument("--checkpoint", type=str, default="outputs/checkpoints/deeplabv3_cityscapes/best_model.pt")
+    parser.add_argument("--data-root", type=str, default="data/robot")
+    parser.add_argument("--checkpoint", type=str, default="outputs/checkpoints/robot_only_ft/best_model.pt")
     parser.add_argument("--output-dir", type=str, default="outputs/figures/predictions")
     parser.add_argument("--split", type=str, default="val")
     parser.add_argument("--num-samples", type=int, default=8)
