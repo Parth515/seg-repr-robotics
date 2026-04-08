@@ -48,15 +48,7 @@ Robot masks should follow Cityscapes-style naming:
 - `*_gtFine_labelTrainIds.png`
 - optional: `*_gtFine_color.png`, `*_gtFine_instanceIds.png`
 
----
 
-## Setup
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
 
 ---
 
@@ -65,7 +57,7 @@ pip install -r requirements.txt
 If your robot annotations are exported in Cityscapes style and already contain `labelIds`, generate `labelTrainIds` with:
 
 ```bash
-python -m src.preprocessing.labelids_to_trainids --input data/robot/gtFine
+python3 -m src.preprocessing.labelids_to_trainids --input data/robot/gtFine
 ```
 
 ---
@@ -82,7 +74,7 @@ Train the autoencoder on all robot images, labeled or unlabeled.
 Run robot-only or mixed fine-tuning:
 
 ```bash
-python -m src.training.finetune_on_robot_subset \
+python3 -m src.training.finetune_on_robot_subset \
   --cityscapes-root data/cityscapes \
   --robot-root data/robot \
   --init-checkpoint outputs/checkpoints/deeplabv3_cityscapes/best_model.pt \
@@ -94,7 +86,7 @@ python -m src.training.finetune_on_robot_subset \
 Final training on `train+val` and evaluation on `test`:
 
 ```bash
-python -m src.training.finetune_on_robot_subset \
+python3 -m src.training.finetune_on_robot_subset \
   --cityscapes-root data/cityscapes \
   --robot-root data/robot \
   --init-checkpoint outputs/checkpoints/deeplabv3_cityscapes/best_model.pt \
